@@ -18,7 +18,7 @@ A contact has the following properties and requirements:
 | :---       | :---      | :---    |
 | Salutation | The contact's salutation | Cannot be empty, must be longer than 2 characters, can be changed |
 | First Name | The contact's first name | Cannot be empty, must be longer than 2 characters, can be changed |
-| Last Name | The contact's last name | Cannot be empty, must be longer than 2 characters |
+| Last Name | The contact's last name | Cannot be empty, must be longer than 2 characters, can be changed |
 | Displayname | The contact's display name | If empty it will be filled automatically with salutation + firstname + surname, can be changed |
 | Birthdate | The contact's birthdate | Can be empty, can be changed |
 | CreationTimestamp | The time when the contact was created | Cannot be changed |
