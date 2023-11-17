@@ -2,8 +2,9 @@
 
 namespace ContactManagerAPI.Models
 {
-    // we use the Entity Framework Core to create a session with the
-    // database for querying and storing instances of entities
+    /// <summary>
+    /// Create a session with the database for querying and storing instances of entities.
+    /// </summary>
     public class ContactManagerDbContext : DbContext
     {
         public ContactManagerDbContext(DbContextOptions<ContactManagerDbContext> options)
