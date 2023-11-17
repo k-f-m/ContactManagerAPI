@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 // Initialze WebApplicationBuilder instance and connection string.
 var builder = WebApplication.CreateBuilder(args);
-string connectionString = builder.Configuration.GetConnectionString("ContactManagerDatabase");
+string connectionString = builder.Configuration.GetConnectionString("ContactManagerDbConnection");
 
 // Add services to the container.
 builder.Services.AddControllers();
