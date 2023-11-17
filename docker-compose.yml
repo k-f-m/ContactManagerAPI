@@ -1,0 +1,36 @@
+version: '3.8'
+
+networks:
+  development:
+    driver: bridge
+
+services:
+  contactmanagerapi:
+    image: ${DOCKER_REGISTRY-}contactmanagerapi
+    depends_on:
+        - "contacts_db"
+    container_name: contact_manager
+    ports:
+        - "8080:80"
+    build:
+      context: .
+      dockerfile: ContactManagerAPI/Dockerfile
+    environment:
+        - ConnectionStrings__ContactManagerDbConnection= User ID=postgres;Password=notsecure;Server=contacts_db;Port=5432;Database=ContactsDb;IntegratedSecurity=true;Pooling=true;
+        - ASPNETCORE_URLS=https://+:443;http://+:80
+    networks: 
+        - development
+
+  contacts_db:
+    image: postgres:latest
+    container_name: contacts_db
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=notsecure
+        - POSTGRES_DB=ContactsDb
+    ports:
+        - "5433:5432"
+    restart: always
+
+    networks:
+        - development
