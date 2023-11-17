@@ -2,9 +2,11 @@
 
 namespace ContactManagerAPI.Models
 {
+    /// <summary>
+    /// Define data structure of payload.
+    /// </summary>
     public class Contact
     {
-        // define data structure of payload
         public int Id { get; set; }
 
         [Required]
