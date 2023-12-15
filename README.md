@@ -29,6 +29,8 @@ A contact has the following properties and requirements:
 
 ## Tools, Frameworks, and Packages
 - Visual Studio 2022
+- Docker Desktop 4.25.2
+- PostgreSQL 16.1
 - Microsoft.AspNetCore.App
 - Microsoft.NETCore.App
 - Microsoft.EntityFrameworkCore (6.0.25)
