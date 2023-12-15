@@ -27,7 +27,7 @@ A contact has the following properties and requirements:
 | Email | The contact's email address | Cannot be empty, can be changed, is unique |
 | Phone number | The contact's phone number | Can be empty, can be changed |
 
-## Prerequisites
+## Tools, Frameworks, and Packages
 - Visual Studio 2022
 - Microsoft.AspNetCore.App
 - Microsoft.NETCore.App
