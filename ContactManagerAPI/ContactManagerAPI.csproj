@@ -10,11 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\ContactsController - Copy.cs" />
-    <Compile Remove="Controllers\WeatherForecastController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 

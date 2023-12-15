@@ -1,67 +1,103 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContactManagerAPI.Models
 {
+
     /// <summary>
-    /// Define data structure of payload.
+    /// Represents a contact entity.
     /// </summary>
+    [Index(nameof(Email), IsUnique = true)]
     public class Contact
     {
-        public int Id { get; set; }
+        private string _displayName;
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; private set; }
 
         [Required]
         [MinLength(3)]
-        public string? Salutation { get; set; }
+        public string Salutation { get; set; }
 
         [Required]
         [MinLength(3)]
-        public string? Firstname { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [MinLength(3)]
-        public string? Lastname { get; set; }
+        public string LastName { get; set; }
 
-        public string? Displayname
+        public string DisplayName
         {
             get
             {
-                if (string.IsNullOrEmpty(Salutation) || string.IsNullOrEmpty(Firstname) || string.IsNullOrEmpty(Lastname))
+                if (string.IsNullOrEmpty(_displayName))
                 {
-                    return null;
+                    _displayName = $"{Salutation} {FirstName} {LastName}";
                 }
-
-                return $"{Salutation} {Firstname} {Lastname}";
+                return _displayName;
             }
-            set { }
+            set
+            {
+                _displayName = value;
+            }
         }
+        /// <summary>
+        /// Date of birth of the person in yyyy-MM-dd format.
+        /// </summary>
+        [DataType(DataType.Date)]
+        public DateTime? BirthDate { get; set; }
 
-        public DateTime? Birthdate { get; set; }
+        /// <summary>
+        /// The timestamp of when the record was created.
+        /// </summary>
+        /// <remarks>
+        /// This value is computed by the database and cannot be modified.
+        /// </remarks>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreationTimestamp { get; private set; }
 
-        [Required]
-        public DateTime CreationTimestamp { get; set; } = DateTime.UtcNow;
-
-        public DateTime? LastChangeTimestamp { get; set; }
-
+        /// <summary>
+        /// The timestamp of when the record was last changed.
+        /// </summary>
+        /// <remarks>
+        /// This value is automatically set to the current UTC time when the property is modified.
+        /// </remarks>
+        private DateTime _lastChangeTimestamp;
+        public DateTime LastChangeTimestamp
+        {
+            get
+            {
+                return _lastChangeTimestamp;
+            }
+            private set
+            {
+                _lastChangeTimestamp = DateTime.UtcNow;
+            }
+        }
+        
         public bool NotifyHasBirthdaySoon
         {
             get
             {
-                if (Birthdate.HasValue)
+                if (BirthDate.HasValue)
                 {
-                    var daysUntilBirthday = (Birthdate.Value - DateTime.UtcNow).Days;
+                    var daysUntilBirthday = (BirthDate.Value - DateTime.UtcNow).Days;
 
                     return daysUntilBirthday >= 0 && daysUntilBirthday <= 14;
                 }
 
                 return false;
             }
-            set { }
+            private set { }
         }
 
         [Required]
         [EmailAddress]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
-        public string? Phonenumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }
